@@ -42,12 +42,12 @@ to get a clean instance of the order which the user wishes to check out.
 ```ruby
 ::app/controllers/orders_controller.rb
 def checkout
-  @order = Shoppe::Order.find(current_order.id)
+  @order = Shopr::Order.find(current_order.id)
 end
 ```
 
 On our checkout page, we want to display the contents of the basket as well as providing
-a form for visitor to enter their details.
+a form for visitors to enter their details.
 
 ```rhtml
 ::app/views/orders/checkout.html.erb
@@ -66,7 +66,7 @@ a form for visitor to enter their details.
     <dd><%= f.text_field :billing_address4 %></dd>
     <dt><%= f.label :billing_postcode, 'Post code' %></dt>
     <dd><%= f.text_field :billing_postcode %></dd>
-    <dd><%= f.collection_select :billing_country_id, Shoppe::Country.ordered, :id, :name, :include_blank => true %></dd>
+    <dd><%= f.collection_select :billing_country_id, Shopr::Country.ordered, :id, :name, :include_blank => true %></dd>
     
     <dt><%= f.label :email_address %></dt>
     <dd><%= f.text_field :email_address %></dd>
@@ -90,7 +90,7 @@ to look like this:
 ```ruby
 ::app/controllers/orders_controller.rb
 def checkout
-  @order = Shoppe::Order.find(current_order.id)
+  @order = Shopr::Order.find(current_order.id)
   if request.patch?
     if @order.proceed_to_confirm(params[:order].permit(:first_name, :last_name, :billing_address1, :billing_address2, :billing_address3, :billing_address4, :billing_country_id, :billing_postcode, :email_address, :phone_number))
       redirect_to checkout_payment_path
@@ -99,7 +99,7 @@ def checkout
 end
 ```
 
-When the form is submitted, the approved parameters will be sent to the `Shoppe::Order#proceed_to_confirm`
+When the form is submitted, the approved parameters will be sent to the `Shopr::Order#proceed_to_confirm`
 method which will update the order and push the status of the order to `confirming`. Once
 an order is in this stage, various validations will be required. If any validation errors
 occur the form will be re-rendered and you may wish to display the ActiveRecord errors
@@ -107,7 +107,7 @@ as appropriate.
 
 Up next is building a payment page. However, this process is payment processor specific and 
 depends on exactly how you want to implement this. You may wish to refer to the documentation
-provided in your payment processors Shoppe module to accomplish this. In this tutorial, we'll
+provided in your payment processors Shopr module to accomplish this. In this tutorial, we'll
 just render a form asking for details and discard them. The checkout action we just implemented
 will send users to our `payment` action. 
 
@@ -167,7 +167,7 @@ def confirmation
 end
 ```
 
-You're done! Just test our your order process and then head over to your Shoppe interface
+You're done! Just test our your order process and then head over to your Shopr interface
 to view your newly placed order.
 
 ## Further techniques

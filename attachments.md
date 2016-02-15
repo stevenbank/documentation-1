@@ -1,7 +1,7 @@
 # Attachments
 
-Shoppe has support for uploading attachments to many cloud services
-such as S3, Cloud Files and more. Because Shoppe uses CarrierWave and Fog,
+Shopr has support for uploading attachments to many cloud services
+such as S3, Cloud Files and more. Because Shopr uses CarrierWave and Fog,
 2 popular gems to file uploading, this makes it simple to upload
 to different services.
 
@@ -32,14 +32,14 @@ CarrierWave.configure do |cfg|
 end
 ```
 
-## Converting nifty-attachments to Shoppe Attachments
+## Converting nifty-attachments to Shopr Attachments
 
-Shoppe v1.0.9 moved from `nifty-attachments` to a custom Attachments system.
+Shopr v1.0.9 moved from `nifty-attachments` to a custom Attachments system.
 Once installing the latest version and running the migrations, you'll notice 
 that none of the old attachments have been moved over. In order to run this, you'll
 need to add the `nifty-attachments` gem to your Gemfile. It can then be
 removed afterwards. Start the conversion by running the following rake task:
 
 ```bash
-$ rake shoppe:attachments
+$ rake shopr:attachments
 ```

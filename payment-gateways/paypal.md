@@ -1,13 +1,13 @@
 # PayPal
 
-Shoppe has a module for taking payments with PayPal. This small tutorial
+Shopr has a module for taking payments with PayPal. This small tutorial
 will guide you through the steps in order to integrate it to your Rails app.
 
-To begin, add the `shoppe-paypal` gem to your Gemfile
+To begin, add the `shopr-paypal` gem to your Gemfile
 
 ```
 ::Gemfile
-gem "shoppe-paypal"
+gem "shopr-paypal"
 ```
 
 and install the gem
@@ -21,8 +21,8 @@ if you haven't already. Once you've created an app, you'll be given a Client ID 
 
 The PayPal module defaults to the Sandbox environment in development and live in production.
 
-These details need to be entered into the settings page in the Shoppe admin.
-Go to http://localhost:3000/shoppe/settings and enter them in the required fields. You will also need
+These details need to be entered into the settings page in the Shopr admin.
+Go to http://localhost:3000/shopr/settings and enter them in the required fields. You will also need
 to enter a currency code. This defaults to USD.
 
 In this guide we will create a "Pay by PayPal" button which will redirect the customer to
@@ -48,13 +48,13 @@ get "checkout/paypal", to: "orders#paypal"
 Before we can add the controller method for PayPal, the PayPal setup method
 needs to be initialised for the specific controller methods. Add the
 following code to the top of your `orders_controller.rb`. The
-`Shoppe::Paypal.setup_paypal` method needs to be ran / initialised before
+`Shopr::Paypal.setup_paypal` method needs to be ran / initialised before
 anything that accesses the PayPal API because it sets the API keys
 that were entered on the settings page earlier.
 
 ```ruby
 ::app/controllers/orders_controller.rb
-before_filter(only: [:paypal, :payment]) { Shoppe::Paypal.setup_paypal }
+before_filter(only: [:paypal, :payment]) { Shopr::Paypal.setup_paypal }
 ```
 
 Now we can add the controller method to the orders controller. The
@@ -66,7 +66,7 @@ URL. e.g. http://localhost:3000/checkout/paypal?success=true
 ```ruby
 ::app/controllers/orders_controller.rb
 def paypal
-  @order = Shoppe::Order.find(session[:current_order_id])
+  @order = Shopr::Order.find(session[:current_order_id])
   url = @order.redirect_to_paypal(checkout_payment_url(success: true), checkout_payment_url(success: false))
   redirect_to url
 end
@@ -105,7 +105,7 @@ with the following:
 
 ```rhtml
 ::app/views/orders/payment.html.erb
-<%= shoppe_stripe_javascript %>
+<%= shopr_stripe_javascript %>
 
 <h2>Make your payment</h2>
 
@@ -141,9 +141,9 @@ with the following:
 Ideally the PayPal PayerID should be verified but this is out of the scope
 of this tutorial for the moment.
 
-When the order is accepted in the Shoppe admin area, the PayPal payment is
+When the order is accepted in the Shopr admin area, the PayPal payment is
 "executed" and the funds will be deducted from their account.
 
 Your PayPal integration is now complete!
 
-More information about the `shoppe-paypal` module can be found on [GitHub](https://github.com/deanperry/shoppe-paypal).
+More information about the `shopr-paypal` module can be found on [GitHub](https://github.com/deanperry/shopr-paypal).

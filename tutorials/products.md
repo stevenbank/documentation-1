@@ -5,7 +5,7 @@
 One of the first things every shop needs is a way to display its catalog to visitors.
 
 To begin we will go ahead and create a controller which will be used to display our
-products to our customers. All product information is stored and managed by Shoppe through
+products to our customers. All product information is stored and managed by Shopr through
 its admin interface.
 
 ```bash
@@ -29,12 +29,12 @@ Let's now go and add some methods to our `ProductsController` to get some data.
 class ProductsController < ApplicationController
 
   def index
-    @products = Shoppe::Product.root.ordered.includes(:product_categories, :variants)
+    @products = Shopr::Product.root.ordered.includes(:product_categories, :variants)
     @products = @products.group_by(&:product_category)
   end
   
   def show
-    @product = Shoppe::Product.root.find_by_permalink(params[:permalink])
+    @product = Shopr::Product.root.find_by_permalink(params[:permalink])
   end
   
 end
@@ -103,4 +103,3 @@ about the product along with it's image and a link for adding it to your basket.
 * Display products based on their 'featured' boolean
 * Display products within their categories
 * Display stock information along with orders
-

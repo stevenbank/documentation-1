@@ -1,6 +1,6 @@
-# Shoppe Documentation
+# Shopr Documentation
 
-This repository contains all the documentation which is pulled into the Shoppe website.
+This repository contains all the documentation which is pulled into the Shopr website.
 
 If you wish to make changes or suggest documentation, please feel free to submit pull
 requests to this repository for inclusion in the website.

@@ -1,5 +1,5 @@
 set :application, "support"
-set :repository, "git://github.com/tryshoppe/documentation.git"
+set :repository, "git://github.com/tryshopr/documentation.git"
 set :branch, "master"
 set :deploy_to, "/app/docs"
 set :ssh_options, {:port => 32032}
@@ -25,4 +25,3 @@ namespace :deploy do
     update_code
   end
 end
-

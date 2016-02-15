@@ -1,8 +1,8 @@
 {{partial:getting_started_series}}
 
-# Working with Shoppe baskets
+# Working with Shopr baskets
 
-Shoppe has the concept of orders - an order is a collection of products along with
+Shopr has the concept of orders - an order is a collection of products along with
 other information about how they should be delivered and billed to a customer.
 
 A basket is simply an order which has not yet been "checked out". Therefore, whenever
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
       if has_order?
         @current_order
       else
-        order = Shoppe::Order.create(:ip_address => request.ip)
+        order = Shopr::Order.create(:ip_address => request.ip)
         session[:order_id] = order.id
         order
       end
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def has_order?
     !!(
       session[:order_id] &&
-      @current_order = Shoppe::Order.includes(:order_items => :ordered_item).find_by_id(session[:order_id])
+      @current_order = Shopr::Order.includes(:order_items => :ordered_item).find_by_id(session[:order_id])
     )
   end
 
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-The `current_order` method will always return an instance of `Shoppe::Order`. The first time this
+The `current_order` method will always return an instance of `Shopr::Order`. The first time this
 is called for a visitor, an order will be created and its ID stored in a session. Any subsequent
 calls within the same session will simply return the created order.
 
@@ -62,7 +62,7 @@ We already created a route for this earlier.
 ```ruby
 ::app/controllers/products_controller.rb
 def buy
-  @product = Shoppe::Product.root.find_by_permalink!(params[:permalink])
+  @product = Shopr::Product.root.find_by_permalink!(params[:permalink])
   current_order.order_items.add_item(@product, 1)
   redirect_to product_path(@product.permalink), :notice => "Product has been added successfuly!"
 end

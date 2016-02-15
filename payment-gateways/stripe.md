@@ -1,13 +1,13 @@
 # Stripe
 
-Shoppe has a module for interfacing with Stripe. This small tutorial will
+Shopr has a module for interfacing with Stripe. This small tutorial will
 run through the steps in order to add it to your Rails application.
 
-To begin, add the `shoppe-stripe` gem to your Gemfile
+To begin, add the `shopr-stripe` gem to your Gemfile
 
 ```ruby
 ::Gemfile
-gem "shoppe-stripe", require: "shoppe/stripe"
+gem "shopr-stripe", require: "shopr/stripe"
 ```
 
 and install the gem
@@ -20,11 +20,11 @@ Edit your `application.js` file and add the following
 
 ```
 ::app/assets/javascripts/application.js
-//= require shoppe/stripe/form_handler
+//= require shopr/stripe/form_handler
 ```
 
-Now the Stripe API keys need to be entered into the settings page in the Shoppe admin.
-Go to http://localhost:3000/shoppe/settings and enter the Secret & Publishable keys
+Now the Stripe API keys need to be entered into the settings page in the Shopr admin.
+Go to http://localhost:3000/shopr/settings and enter the Secret & Publishable keys
 from Stripe and set the currency code if required.
 
 Stripe works by submitting cards details submitted by your users to their servers using
@@ -62,7 +62,7 @@ prevents the form from sending the non-encrypted details to your application.
 
 ```rhtml
 ::app/views/orders/payment.html.erb
-<%= shoppe_stripe_javascript %>
+<%= shopr_stripe_javascript %>
 
 <h2>Make your payment</h2>
 
@@ -90,7 +90,7 @@ handle the exchange and store it along with the order.
 ```ruby
 ::app/controllers/orders_controller.rb
 def payment
-  @order = Shoppe::Order.find(session[:current_order_id])
+  @order = Shopr::Order.find(session[:current_order_id])
   if request.post?
     if @order.accept_stripe_token(params[:stripe_token])
       redirect_to checkout_confirmation_path
@@ -107,4 +107,4 @@ payment automatically.
 
 Your Stripe integration is now complete!
 
-More information about the `shoppe-stripe` module can be found on [GitHub](https://github.com/tryshoppe/shoppe-stripe).
+More information about the `shopr-stripe` module can be found on [GitHub](https://github.com/tryshopr/shopr-stripe).
